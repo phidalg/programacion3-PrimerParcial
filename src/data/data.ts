@@ -1,9 +1,9 @@
-import burguerImage from "../../../../assets/burguer.jpg";
-import pizzaImage from "../../../../assets/pizza.jpg";
-import coronaImage from "../../../../assets/corona.jpg";
-import papasImage from "../../../../assets/papas.jpg";
-import tacosImage from "../../../../assets/tacos.jpg";
-import tiramisuImage from "../../../../assets/tiramisu.jpg";
+import burguerImage from "../../assets/burguer.jpg";
+import pizzaImage from "../../assets/pizza.jpg";
+import coronaImage from "../../assets/corona.jpg";
+import papasImage from "../../assets/papas.jpg";
+import tacosImage from "../../assets/tacos.jpg";
+import tiramisuImage from "../../assets/tiramisu.jpg";
 
 export type Categoria = {
   nombre: string;

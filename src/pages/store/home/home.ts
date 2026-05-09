@@ -1,4 +1,4 @@
-import { categorias, productos } from "./data";
+import { categorias, productos } from "../../../data/data";
 import { getUser } from "../../../utils/localStorage";
 import { logout } from "../../../utils/auth";
 

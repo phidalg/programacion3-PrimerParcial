@@ -47,7 +47,7 @@ document.getElementById('form-login')!.addEventListener('submit', function (e: E
   }
 
   saveUser(userData);
-  navigate('/src/pages/public/home/home.html');
+  navigate('/src/pages/store/home/home.html');
 });
 
 document.addEventListener('DOMContentLoaded', () => {
