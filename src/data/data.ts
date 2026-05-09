@@ -17,9 +17,10 @@ export type Producto = {
   precio: number;
   categoria: string;
   imagen: string;
+  stock: number;
 };
 
-export const categorias = [
+const categorias = [
     {
         "nombre": "Todo",
         "emoji": "🍽️"
@@ -50,14 +51,19 @@ export const categorias = [
     }
 ];
 
-export const productos = [
+export function getCategories(): Categoria[] {
+  return categorias.map((categoria) => ({ ...categoria }));
+}
+
+const productos = [
   {
     id: 1,
     nombre: "Hamburguesa Clásica",
     descripcion: "Carne angus, lechuga, tomate, pickles y nuestra salsa secreta en pan brioche tostado. Incluye papas regulares.",
     precio: 10000,
     categoria: "Hamburguesas",
-    imagen: burguerImage
+    imagen: burguerImage,
+    stock: 42
   },
   {
     id: 2,
@@ -65,7 +71,8 @@ export const productos = [
     descripcion: "Salsa de tomate artesanal, mozzarella fresca y hojas de albahaca. Masa fina y crocante.",
     precio: 12500,
     categoria: "Pizzas",
-    imagen: pizzaImage
+    imagen: pizzaImage,
+    stock: 18
   },
   {
     id: 3,
@@ -73,7 +80,8 @@ export const productos = [
     descripcion: "Cerveza Corona 710 CC.",
     precio: 7000,
     categoria: "Bebidas",
-    imagen: coronaImage
+    imagen: coronaImage,
+    stock: 5
   },
   {
     id: 4,
@@ -81,15 +89,17 @@ export const productos = [
     descripcion: "Papas fritas tamaño regular.",
     precio: 3000,
     categoria: "Papas Fritas",
-    imagen: papasImage
+    imagen: papasImage,
+    stock: 30
   },
   {
     id: 5,
     nombre: "Tacos de Pollo",
     descripcion: "Tortillas de maíz, pollo a la plancha, guacamole, salsa pico de gallo.",
     precio: 11000,
-    categoria: "Hamburguesas",
-    imagen: tacosImage
+    categoria: "Tacos",
+    imagen: tacosImage,
+    stock: 2
   },
   {
     id: 6,
@@ -97,6 +107,11 @@ export const productos = [
     descripcion: "Postre italiano tradicional con crema de mascarpone y café.",
     precio: 8000,
     categoria: "Postres",
-    imagen: tiramisuImage
+    imagen: tiramisuImage,
+    stock: 7
   }
 ];
+
+export function getProducts(): Producto[] {
+  return productos.map((producto) => ({ ...producto }));
+}

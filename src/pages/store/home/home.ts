@@ -1,4 +1,4 @@
-import { categorias, productos } from "../../../data/data";
+import { getCategories, getProducts } from "../../../data/data";
 import { getUser } from "../../../utils/localStorage";
 import { logout } from "../../../utils/auth";
 
@@ -62,7 +62,7 @@ function cargarCategorias(): void {
   const lista = document.getElementById("lista-categorias") as HTMLUListElement | null;
   if (!lista) return;
 
-  categorias.forEach((categoria: Categoria, index: number) => {
+  getCategories().forEach((categoria: Categoria, index: number) => {
     // Crear elementos
     const li = document.createElement("li");
     const a  = document.createElement("a");
@@ -105,8 +105,8 @@ function cargarProductos(categoriaFiltro: string | null = null): void {
   contenedor.innerHTML = ""; // limpiar antes de re-renderizar
 
   const lista = categoriaFiltro
-    ? productos.filter((p) => p.categoria === categoriaFiltro)
-    : productos;
+    ? getProducts().filter((p) => p.categoria === categoriaFiltro)
+    : getProducts();
 
   // Actualizar título de sección
   const titulo = document.querySelector(".section-title");
