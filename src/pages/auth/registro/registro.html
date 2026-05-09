@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food Store — Crear Cuenta</title>
+    <link rel="stylesheet" href="/src/css/styles.css" />
+    <link rel="icon" href="/assets/favicon.ico" />
+    <script type="module" src="registro.ts"></script>
+</head>
+
+<body class="no-aside">
+
+    <header>
+        <h1>Food<span>Store</span></h1>
+        <nav>
+            <a href="/src/pages/public/home/home.html" class="volver">← Volver a la Tienda</a>
+        </nav>
+    </header>
+
+    <main class="register-main" style="z-index: 1">
+        <div class="register-card">
+
+            <div class="card-header">
+                <h2>Crear una cuenta</h2>
+                <p>Registrate para hacer tus pedidos</p>
+            </div>
+
+            <form id="form-registro" action="#" method="POST" novalidate>
+
+                <div class="form-group">
+                    <label for="email">Correo electrónico</label>
+                    <div class="input-wrap">
+                        <span class="icon">📧</span>
+                        <input type="email" id="email" name="email" placeholder="tu@email.com" autocomplete="email"
+                            required />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <div class="input-wrap">
+                        <span class="icon">🔒</span>
+                        <input type="password" id="password" name="password" placeholder="Mínimo 8 caracteres"
+                            autocomplete="new-password" required />
+                        <button type="button" class="btn-eye" onclick="togglePass('password', this)"
+                            aria-label="Mostrar contraseña">👁️</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password2">Confirmar contraseña</label>
+                    <div class="input-wrap">
+                        <span class="icon">🔒</span>
+                        <input type="password" id="password2" name="password2" placeholder="Repetí tu contraseña"
+                            autocomplete="new-password" required />
+                        <button type="button" class="btn-eye" onclick="togglePass('password2', this)"
+                            aria-label="Mostrar contraseña">👁️</button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">Crear cuenta</button>
+
+            </form>
+
+            <div class="divider">o</div>
+
+            <p class="login-link">¿Ya tenés cuenta? <a href="/src/pages/auth/login/login.html">Iniciá sesión</a></p>
+
+        </div>
+    </main>
+
+    <footer style="z-index: 1">
+        <div class="footer-brand">Food<span>Store</span></div>
+        <div class="footer-copy">© 2026 Pedro Hidalgo. Todos los derechos reservados.</div>
+    </footer>
+
+    <canvas id="burger-rain"
+        style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;"></canvas>
+
+
+</body>
+
+</html>

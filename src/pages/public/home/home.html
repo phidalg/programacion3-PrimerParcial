@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Food Store - Catálogo</title>
+  <link rel="stylesheet" href="/src/css/styles.css" />
+  <link rel="icon" href="/assets/favicon.ico">
+  <script type="module" src="./home.ts" defer></script>
+</head>
+
+<body>
+
+  <header>
+    <div class="header-left">
+      <h1>Food<span>Store</span></h1>
+    </div>
+    <div id="userInfoBox" class="header-user" hidden>
+      logueado como: <span id="userEmail"></span> Rol: <span id="userRole"></span>
+    </div>
+    <nav>
+      <a href="#" class="active">Inicio</a>
+      <a href="../../client/home/home.html">Mis Pedidos</a>
+      <a href="../../client/home/home.html">Carrito</a>
+      <a href="../../admin/home/home.html" class="admin">Panel Admin</a>
+      <button id="logoutButton" class="btn-logout" hidden>Cerrar Sesión</button>
+      <a id="loginLink" href="../../auth/login/login.html" hidden>Iniciar Sesión</a>
+    </nav>
+  </header>
+
+  <aside>
+    <h2>Categorías</h2>
+    <ul id="lista-categorias">
+
+    </ul>
+  </aside>
+
+  <main>
+
+    <p class="section-title">Todos los productos</p>
+
+    <section class="product-grid" aria-label="Catálogo de productos" id="contenedor-productos">
+
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-brand">Food<span>Store</span></div>
+    <div class="footer-contact">
+      <a href="mailto: pedro.hidalgo@tupad.utn.edu.ar"> 📧 contacto@foodstore.com</a>
+      <a href="tel:+543512345678">📞 (351) 234-5678</a>
+      <span>📍 Córdoba, Argentina</span>
+    </div>
+    <div class="footer-copy">© 2026 Pedro Hidalgo. Todos los derechos reservados.</div>
+  </footer>
+
+</body>
+
+</html>
