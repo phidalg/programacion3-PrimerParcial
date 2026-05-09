@@ -42,6 +42,14 @@ if (storedUser && userInfoBox && userEmail && userRole && buttonLogout) {
   if (loginLink) loginLink.hidden = false;
 }
 
+// ─── Estado global de filtros ────────────────────────────────────────────────
+
+/** Categoría activa actualmente (null = todas). */
+let categoriaActiva: string | null = null;
+
+/** Texto de búsqueda activo. */
+let textoBusqueda: string = "";
+
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
 /**
@@ -50,6 +58,27 @@ if (storedUser && userInfoBox && userEmail && userRole && buttonLogout) {
  */
 function formatPrecio(valor: number): string {
   return "$" + valor.toLocaleString("es-AR");
+}
+
+// ─── Búsqueda ────────────────────────────────────────────────────────────────
+
+/**
+ * Inicializa el input de búsqueda y escucha los cambios del usuario.
+ * Aplica el filtro por nombre en tiempo real (debounce de 200 ms).
+ */
+function iniciarBuscador(): void {
+  const input = document.getElementById("buscador-productos") as HTMLInputElement | null;
+  if (!input) return;
+
+  let debounceTimer: ReturnType<typeof setTimeout>;
+
+  input.addEventListener("input", () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      textoBusqueda = input.value.trim().toLowerCase();
+      cargarProductos(categoriaActiva);
+    }, 200);
+  });
 }
 
 // ─── Categorías ──────────────────────────────────────────────────────────────
@@ -81,9 +110,9 @@ function cargarCategorias(): void {
       lista.querySelectorAll("a").forEach((link) => link.classList.remove("active"));
       a.classList.add("active");
 
-      // Filtrar y re-renderizar productos
-      const filtro: string | null = categoria.nombre === "Todo" ? null : categoria.nombre;
-      cargarProductos(filtro);
+      // Actualizar estado y re-renderizar
+      categoriaActiva = categoria.nombre === "Todo" ? null : categoria.nombre;
+      cargarProductos(categoriaActiva);
     });
 
     // Inyectar en el DOM
@@ -96,28 +125,42 @@ function cargarCategorias(): void {
 
 /**
  * Renderiza las tarjetas de productos en #contenedor-productos.
+ * Aplica simultáneamente el filtro de categoría y el de búsqueda por nombre.
+ *
  * @param {string|null} categoriaFiltro - Nombre de la categoría a mostrar,
- *                                        o null / "Todo" para mostrar todo.
+ *                                        o null / "Todo" para mostrar todas.
  */
 function cargarProductos(categoriaFiltro: string | null = null): void {
   const contenedor = document.getElementById("contenedor-productos") as HTMLElement | null;
   if (!contenedor) return;
   contenedor.innerHTML = ""; // limpiar antes de re-renderizar
 
-  const lista = categoriaFiltro
+  // Filtrar por categoría
+  let lista = categoriaFiltro
     ? getProducts().filter((p) => p.categoria === categoriaFiltro)
     : getProducts();
+
+  // Filtrar por texto de búsqueda (nombre del producto, case-insensitive)
+  if (textoBusqueda) {
+    lista = lista.filter((p) =>
+      p.nombre.toLowerCase().includes(textoBusqueda)
+    );
+  }
 
   // Actualizar título de sección
   const titulo = document.querySelector(".section-title");
   if (titulo) {
-    titulo.textContent = categoriaFiltro ? categoriaFiltro : "Todos los productos";
+    if (textoBusqueda) {
+      titulo.textContent = `Resultados para "${textoBusqueda}"`;
+    } else {
+      titulo.textContent = categoriaFiltro ? categoriaFiltro : "Todos los productos";
+    }
   }
 
-  // Mensaje si no hay productos en la categoría
+  // Mensaje si no hay productos
   if (lista.length === 0) {
     contenedor.innerHTML = `<p style="color:var(--muted);grid-column:1/-1">
-      No hay productos en esta categoría.
+      No se encontraron productos${textoBusqueda ? ` para "${textoBusqueda}"` : " en esta categoría"}.
     </p>`;
     return;
   }
@@ -164,6 +207,7 @@ function agregarAlCarrito(producto: Producto): void {
 // ─── Init ────────────────────────────────────────────────────────────────────
 
 document.addEventListener("DOMContentLoaded", () => {
+  iniciarBuscador();
   cargarCategorias();
   cargarProductos();
 });

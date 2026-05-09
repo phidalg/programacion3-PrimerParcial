@@ -227,6 +227,45 @@ aside ul li a .cat-icon {
   font-size: 1.1rem;
 }
 
+/* ─── Buscador de productos (aside) ────────────────────────── */
+.search-box {
+  position: relative;
+  margin-bottom: 1.25rem;
+}
+
+.search-box::before {
+  content: "🔍";
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.8rem;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+#buscador-productos {
+  width: 100%;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-size: 0.875rem;
+  padding: 0.6rem 2rem 0.6rem 2.2rem;
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  appearance: none;
+}
+
+#buscador-productos::placeholder {
+  color: var(--muted);
+}
+
+#buscador-productos:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(232, 162, 52, .12);
+}
+
 /* ─── Main (catálogo) ───────────────────────────────────────── */
 main {
   grid-area: main;
@@ -880,6 +919,10 @@ details[open] summary {
     border-right: none;
     border-bottom: 1px solid var(--border);
     padding: 1rem 1.25rem;
+  }
+
+  .search-box {
+    margin-bottom: 0.75rem;
   }
 
   aside ul {
