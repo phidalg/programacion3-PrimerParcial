@@ -159,6 +159,20 @@ nav button:hover {
   background: var(--border);
 }
 
+.cart-badge {
+  display: inline-block;
+  background-color: lightcoral;
+  color: black;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: bold;
+  line-height: 20px;
+  margin-left: 0.25rem;
+}
+
 .btn-back {
   display: inline-flex;
   align-items: center;

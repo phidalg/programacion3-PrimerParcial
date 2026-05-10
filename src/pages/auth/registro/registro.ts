@@ -1,3 +1,4 @@
+import type { ICart } from "../../../types/ICart";
 import { burgerRain } from "../../../utils/animation";
 
 (window as any).togglePass = function (inputId: string, btn: HTMLButtonElement): void {
@@ -33,13 +34,15 @@ document.getElementById('form-registro')!.addEventListener('submit', function (e
         alert('Las contraseñas no coinciden.'); return;
     }
 
-    const users: { email: string; password: string }[] = JSON.parse(localStorage.getItem('users') || '[]');
+    const users: { email: string; password: string; cart: ICart }[] = JSON.parse(localStorage.getItem('users') || '[]');
 
     if (users.some(u => u.email === email)) {
         alert('Ya existe una cuenta con ese correo.'); return;
     }
 
-    users.push({ email, password: pass });
+    const cart = { items: [] };
+
+    users.push({ email, password: pass, cart });
     localStorage.setItem('users', JSON.stringify(users));
 
     alert('Cuenta creada con éxito. ¡Bienvenido a FoodStore!');

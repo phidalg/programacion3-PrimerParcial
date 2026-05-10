@@ -2,6 +2,7 @@ import type { IUser } from "../../../types/IUser";
 import { saveUser } from "../../../utils/localStorage";
 import { navigate } from "../../../utils/navigate";
 import { burgerRain } from "../../../utils/animation";
+import type { ICart } from "../../../types/ICart";
 
 (window as any).togglePass = function (inputId: string, btn: HTMLButtonElement): void {
   const input = document.getElementById(inputId) as HTMLInputElement;
@@ -27,7 +28,7 @@ document.getElementById('form-login')!.addEventListener('submit', function (e: E
     return;
   }
 
-  const users: { email: string; password: string }[] = JSON.parse(localStorage.getItem('users') || '[]');
+  const users: { email: string; password: string; cart: ICart }[] = JSON.parse(localStorage.getItem('users') || '[]');
 
   const match = users.find(u => u.email === email && u.password === pass);
 
@@ -40,6 +41,7 @@ document.getElementById('form-login')!.addEventListener('submit', function (e: E
     email: match.email,
     loggedIn: true,
     role: 'client',
+    cart: match.cart
   };
 
   if (match.email === 'admin@foodstore.com') {

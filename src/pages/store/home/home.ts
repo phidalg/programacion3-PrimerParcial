@@ -1,21 +1,9 @@
 import { getCategories, getProducts } from "../../../data/data";
 import { getUser } from "../../../utils/localStorage";
 import { logout } from "../../../utils/auth";
-
-type Categoria = {
-  nombre: string;
-  emoji: string;
-};
-
-type Producto = {
-  id: number | string;
-  nombre: string;
-  descripcion: string;
-  precio: number;
-  categoria: string;
-  imagen: string;
-};
-
+import { addToCart, getTotalItems } from "../../../utils/localStorage";
+import type { ICategory } from "../../../types/category";
+import type { Product } from "../../../types/product";
 
 const buttonLogout = document.getElementById(
   "logoutButton"
@@ -41,6 +29,23 @@ if (storedUser && userInfoBox && userEmail && userRole && buttonLogout) {
   if (buttonLogout) buttonLogout.hidden = true;
   if (loginLink) loginLink.hidden = false;
 }
+
+// Update cart badge
+const updateCartBadge = () => {
+  const cartBadge = document.getElementById("cartBadge") as HTMLElement | null;
+  if (cartBadge) {
+    const totalItems = getTotalItems();
+    if (totalItems > 0) {
+      cartBadge.textContent = totalItems.toString();
+      cartBadge.style.display = "inline-block";
+    } else {
+      cartBadge.style.display = "none";
+    }
+  }
+};
+
+// Initial update
+updateCartBadge();
 
 // ─── Estado global de filtros ────────────────────────────────────────────────
 
@@ -91,31 +96,34 @@ function cargarCategorias(): void {
   const lista = document.getElementById("lista-categorias") as HTMLUListElement | null;
   if (!lista) return;
 
-  getCategories().forEach((categoria: Categoria, index: number) => {
-    // Crear elementos
+  // Opción "Todo" para mostrar todos los productos sin filtro de categoría.
+  const todoLi = document.createElement("li");
+  const todoLink = document.createElement("a");
+  todoLink.href = "#";
+  todoLink.classList.add("active");
+  todoLink.innerHTML = `<span class="cat-icon">📝</span> Todo`;
+  todoLink.addEventListener("click", (e) => {
+    e.preventDefault();
+    lista.querySelectorAll("a").forEach((link) => link.classList.remove("active"));
+    todoLink.classList.add("active");
+    categoriaActiva = null;
+    cargarProductos(categoriaActiva);
+  });
+  todoLi.appendChild(todoLink);
+  lista.appendChild(todoLi);
+
+  getCategories().forEach((categoria: ICategory) => {
     const li = document.createElement("li");
     const a  = document.createElement("a");
-
-    // Atributos y contenido
     a.href = "#";
-    if (index === 0) a.classList.add("active"); // "Todo" activo al inicio
-
     a.innerHTML = `<span class="cat-icon">${categoria.emoji}</span> ${categoria.nombre}`;
-
-    // Evento: filtrar productos al hacer clic
     a.addEventListener("click", (e) => {
       e.preventDefault();
-
-      // Actualizar clase activa
       lista.querySelectorAll("a").forEach((link) => link.classList.remove("active"));
       a.classList.add("active");
-
-      // Actualizar estado y re-renderizar
-      categoriaActiva = categoria.nombre === "Todo" ? null : categoria.nombre;
+      categoriaActiva = categoria.nombre;
       cargarProductos(categoriaActiva);
     });
-
-    // Inyectar en el DOM
     li.appendChild(a);
     lista.appendChild(li);
   });
@@ -137,8 +145,8 @@ function cargarProductos(categoriaFiltro: string | null = null): void {
 
   // Filtrar por categoría
   let lista = categoriaFiltro
-    ? getProducts().filter((p) => p.categoria === categoriaFiltro)
-    : getProducts();
+    ? getProducts().filter((p) => p.disponible && p.categorias.some((c) => c.nombre === categoriaFiltro))
+    : getProducts().filter((p) => p.disponible);
 
   // Filtrar por texto de búsqueda (nombre del producto, case-insensitive)
   if (textoBusqueda) {
@@ -195,13 +203,13 @@ function cargarProductos(categoriaFiltro: string | null = null): void {
 
 // ─── Carrito (base) ──────────────────────────────────────────────────────────
 
-/**
- * Agrega un producto al carrito (lógica base).
- * Reemplazá esta función cuando implementes el carrito completo.
- */
-function agregarAlCarrito(producto: Producto): void {
-  // TODO: implementar lógica completa del carrito
-  alert(`✅ "${producto.nombre}" agregado al carrito.`);
+function agregarAlCarrito(producto: Product): void {
+  if (!getUser()) {
+    alert("Debes iniciar sesión para agregar productos al carrito.");
+    return;
+  }
+  addToCart(producto);
+  updateCartBadge();
 }
 
 // ─── Init ────────────────────────────────────────────────────────────────────

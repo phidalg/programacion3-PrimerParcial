@@ -1,117 +1,312 @@
+// src/utils/data.ts
+import type { Product } from "../types/product";
+import type { ICategory } from "../types/category";
+
 import burguerImage from "../../assets/burguer.jpg";
 import pizzaImage from "../../assets/pizza.jpg";
-import coronaImage from "../../assets/corona.jpg";
-import papasImage from "../../assets/papas.jpg";
-import tacosImage from "../../assets/tacos.jpg";
 import tiramisuImage from "../../assets/tiramisu.jpg";
+import placeholderImage from "../../assets/placeholder.jpg";
+import empanadasImage from "../../assets/empanadas.jpg";
 
-export type Categoria = {
-  nombre: string;
-  emoji: string;
-};
-
-export type Producto = {
-  id: number | string;
-  nombre: string;
-  descripcion: string;
-  precio: number;
-  categoria: string;
-  imagen: string;
-  stock: number;
-};
-
-const categorias = [
-    {
-        "nombre": "Todo",
-        "emoji": "🍽️"
-    },
-    {
-        "nombre": "Pizzas",
-        "emoji": "🍕"
-    },
-    {
-        "nombre": "Hamburguesas",
-        "emoji": "🍔"
-    },
-    {
-        "nombre": "Papas Fritas",
-        "emoji": "🍟"
-    },
-    {
-        "nombre": "Ensaladas",
-        "emoji": "🥗"
-    },
-    {
-        "nombre": "Postres",
-        "emoji": "🍰"
-    },
-    {
-        "nombre": "Bebidas",
-        "emoji": "🍺"
-    }
-];
-
-export function getCategories(): Categoria[] {
-  return categorias.map((categoria) => ({ ...categoria }));
-}
-
-const productos = [
+const categorias: ICategory[] = [
   {
     id: 1,
-    nombre: "Hamburguesa Clásica",
-    descripcion: "Carne angus, lechuga, tomate, pickles y nuestra salsa secreta en pan brioche tostado. Incluye papas regulares.",
-    precio: 10000,
-    categoria: "Hamburguesas",
-    imagen: burguerImage,
-    stock: 42
+    eliminado: false,
+    createdAt: "2024-01-15T10:00:00",
+    nombre: "Pizzas",
+    descripcion: "Pizzas artesanales con masa fresca",
+    emoji: "🍕",
   },
   {
     id: 2,
-    nombre: "Pizza Margherita",
-    descripcion: "Salsa de tomate artesanal, mozzarella fresca y hojas de albahaca. Masa fina y crocante.",
-    precio: 12500,
-    categoria: "Pizzas",
-    imagen: pizzaImage,
-    stock: 18
+    eliminado: false,
+    createdAt: "2024-01-15T10:05:00",
+    nombre: "Hamburguesas",
+    descripcion: "Hamburguesas gourmet con ingredientes frescos",
+    emoji: "🍔",
   },
   {
     id: 3,
-    nombre: "Cerveza Corona",
-    descripcion: "Cerveza Corona 710 CC.",
-    precio: 7000,
-    categoria: "Bebidas",
-    imagen: coronaImage,
-    stock: 5
+    eliminado: false,
+    createdAt: "2024-01-16T09:00:00",
+    nombre: "Bebidas",
+    descripcion: "Gaseosas, jugos y bebidas frías",
+    emoji: "🍺",
   },
   {
     id: 4,
-    nombre: "Papas Regulares",
-    descripcion: "Papas fritas tamaño regular.",
-    precio: 3000,
-    categoria: "Papas Fritas",
-    imagen: papasImage,
-    stock: 30
+    eliminado: false,
+    createdAt: "2024-01-16T09:30:00",
+    nombre: "Postres",
+    descripcion: "Tortas, helados y dulces artesanales",
+    emoji: "🍰",
   },
   {
     id: 5,
-    nombre: "Tacos de Pollo",
-    descripcion: "Tortillas de maíz, pollo a la plancha, guacamole, salsa pico de gallo.",
-    precio: 11000,
-    categoria: "Tacos",
-    imagen: tacosImage,
-    stock: 2
+    eliminado: false,
+    createdAt: "2024-01-17T08:00:00",
+    nombre: "Empanadas",
+    descripcion: "Empanadas horneadas y fritas de distintos sabores",
+    emoji: "🥟",
   },
   {
     id: 6,
-    nombre: "Tiramisú",
-    descripcion: "Postre italiano tradicional con crema de mascarpone y café.",
-    precio: 8000,
-    categoria: "Postres",
-    imagen: tiramisuImage,
-    stock: 7
-  }
+    eliminado: false,
+    createdAt: "2024-01-17T08:30:00",
+    nombre: "Ensaladas",
+    descripcion: "Ensaladas frescas y saludables",
+    emoji: "🥗",
+  },
 ];
 
-export function getProducts(): Producto[] {
-  return productos.map((producto) => ({ ...producto }));
+export const PRODUCTS: Product[] = [
+  {
+    id: 1,
+    eliminado: false,
+    createdAt: "2024-02-01T08:00:00",
+    nombre: "Pizza Muzzarella",
+    precio: 4500.0,
+    descripcion: "Pizza clásica con salsa de tomate y muzzarella derretida",
+    stock: 20,
+    imagen: pizzaImage,
+    disponible: true,
+    categorias: [categorias[0]],
+  },
+  {
+    id: 2,
+    eliminado: false,
+    createdAt: "2024-02-01T08:30:00",
+    nombre: "Pizza Napolitana",
+    precio: 5200.0,
+    descripcion: "Pizza con rodajas de tomate fresco, ajo y albahaca",
+    stock: 15,
+    imagen: pizzaImage,
+    disponible: true,
+    categorias: [categorias[0]],
+  },
+  {
+    id: 3,
+    eliminado: false,
+    createdAt: "2024-02-02T09:00:00",
+    nombre: "Pizza Especial 4 Quesos",
+    precio: 6800.0,
+    descripcion: "Muzzarella, provolone, roquefort y parmesano",
+    stock: 10,
+    imagen: pizzaImage,
+    disponible: true,
+    categorias: [categorias[0]],
+  },
+  {
+    id: 4,
+    eliminado: false,
+    createdAt: "2024-02-02T09:30:00",
+    nombre: "Hamburguesa Clásica",
+    precio: 3800.0,
+    descripcion: "Medallón de carne, lechuga, tomate, cebolla y mayo",
+    stock: 30,
+    imagen: burguerImage,
+    disponible: true,
+    categorias: [categorias[1]],
+  },
+  {
+    id: 5,
+    eliminado: false,
+    createdAt: "2024-02-03T10:00:00",
+    nombre: "Hamburguesa BBQ Bacon",
+    precio: 5100.0,
+    descripcion: "Doble medallón, bacon crocante y salsa barbacoa ahumada",
+    stock: 25,
+    imagen: burguerImage,
+    disponible: true,
+    categorias: [categorias[1]],
+  },
+  {
+    id: 6,
+    eliminado: false,
+    createdAt: "2024-02-03T11:00:00",
+    nombre: "Hamburguesa Veggie",
+    precio: 4200.0,
+    descripcion: "Medallón de lentejas y garbanzo, cheddar vegano y rúcula",
+    stock: 0,
+    imagen: burguerImage,
+    disponible: false,
+    categorias: [categorias[1]],
+  },
+  {
+    id: 7,
+    eliminado: false,
+    createdAt: "2024-02-04T09:00:00",
+    nombre: "Coca-Cola 500ml",
+    precio: 1200.0,
+    descripcion: "Gaseosa Coca-Cola fría, botella personal",
+    stock: 100,
+    imagen: placeholderImage,
+    disponible: true,
+    categorias: [categorias[2]],
+  },
+  {
+    id: 8,
+    eliminado: false,
+    createdAt: "2024-02-04T10:00:00",
+    nombre: "Jugo de Naranja Natural",
+    precio: 1800.0,
+    descripcion: "Jugo exprimido en el momento, vaso 400ml",
+    stock: 40,
+    imagen: placeholderImage,
+    disponible: true,
+    categorias: [categorias[2]],
+  },
+  {
+    id: 9,
+    eliminado: false,
+    createdAt: "2024-02-05T08:00:00",
+    nombre: "Agua Mineral 500ml",
+    precio: 800.0,
+    descripcion: "Agua mineral sin gas, botella personal",
+    stock: 150,
+    imagen: placeholderImage,
+    disponible: true,
+    categorias: [categorias[2]],
+  },
+  {
+    id: 10,
+    eliminado: false,
+    createdAt: "2024-02-05T09:00:00",
+    nombre: "Torta Rogel",
+    precio: 3500.0,
+    descripcion: "Torta rogel tradicional con dulce de leche y merengue",
+    stock: 12,
+    imagen: tiramisuImage,
+    disponible: true,
+    categorias: [categorias[3]],
+  },
+  {
+    id: 11,
+    eliminado: false,
+    createdAt: "2024-02-06T08:00:00",
+    nombre: "Helado Artesanal 2 gustos",
+    precio: 2800.0,
+    descripcion: "Pote de 250g, elegí 2 gustos entre 12 opciones",
+    stock: 30,
+    imagen: tiramisuImage,
+    disponible: true,
+    categorias: [categorias[3]],
+  },
+  {
+    id: 12,
+    eliminado: false,
+    createdAt: "2024-02-06T09:00:00",
+    nombre: "Brownie con Helado",
+    precio: 2200.0,
+    descripcion: "Brownie de chocolate tibio con bocha de vainilla",
+    stock: 0,
+    imagen: tiramisuImage,
+    disponible: false,
+    categorias: [categorias[3]],
+  },
+  {
+    id: 13,
+    eliminado: false,
+    createdAt: "2024-02-07T09:00:00",
+    nombre: "Empanadas de Carne x6",
+    precio: 3000.0,
+    descripcion: "Empanadas criollas de carne cortada a cuchillo, horneadas",
+    stock: 50,
+    imagen: empanadasImage,
+    disponible: true,
+    categorias: [categorias[4]],
+  },
+  {
+    id: 14,
+    eliminado: false,
+    createdAt: "2024-02-07T10:00:00",
+    nombre: "Empanadas de Pollo x6",
+    precio: 2800.0,
+    descripcion: "Empanadas de pollo con morrón y verdeo, horneadas",
+    stock: 45,
+    imagen: empanadasImage,
+    disponible: true,
+    categorias: [categorias[4]],
+  },
+  {
+    id: 15,
+    eliminado: false,
+    createdAt: "2024-02-08T08:00:00",
+    nombre: "Empanadas de Jamón y Queso x6",
+    precio: 2500.0,
+    descripcion: "Empanadas fritas con jamón cocido y queso fundido",
+    stock: 60,
+    imagen: empanadasImage,
+    disponible: true,
+    categorias: [categorias[4]],
+  },
+  {
+    id: 16,
+    eliminado: false,
+    createdAt: "2024-02-08T09:00:00",
+    nombre: "Ensalada César",
+    precio: 3200.0,
+    descripcion: "Lechuga romana, crutones, parmesano y aderezo césar",
+    stock: 20,
+    imagen: placeholderImage,
+    disponible: true,
+    categorias: [categorias[5]],
+  },
+  {
+    id: 17,
+    eliminado: false,
+    createdAt: "2024-02-09T08:00:00",
+    nombre: "Ensalada Caprese",
+    precio: 2900.0,
+    descripcion: "Tomate, muzzarella fresca, albahaca y aceite de oliva",
+    stock: 18,
+    imagen: placeholderImage,
+    disponible: true,
+    categorias: [categorias[5]],
+  },
+  {
+    id: 18,
+    eliminado: false,
+    createdAt: "2024-02-09T09:00:00",
+    nombre: "Pizza Fugazzeta",
+    precio: 5500.0,
+    descripcion: "Pizza rellena de muzzarella con cebolla caramelizada",
+    stock: 10,
+    imagen: pizzaImage,
+    disponible: true,
+    categorias: [categorias[0]],
+  },
+  {
+    id: 19,
+    eliminado: false,
+    createdAt: "2024-02-10T08:00:00",
+    nombre: "Hamburguesa Crispy Chicken",
+    precio: 4600.0,
+    descripcion: "Pollo apanado crocante, coleslaw y salsa honey mustard",
+    stock: 0,
+    imagen: burguerImage,
+    disponible: false,
+    categorias: [categorias[1]],
+  },
+  {
+    id: 20,
+    eliminado: false,
+    createdAt: "2024-02-10T09:00:00",
+    nombre: "Ensalada Mixta",
+    precio: 2400.0,
+    descripcion: "Lechuga, tomate, zanahoria rallada y aceitunas",
+    stock: 25,
+    imagen: placeholderImage,
+    disponible: true,
+    categorias: [categorias[5]],
+  },
+]
+ 
+
+export function getCategories(): ICategory[] {
+  return categorias.filter((c) => !c.eliminado);
+}
+
+export function getProducts(): Product[] {
+  return PRODUCTS.filter((p) => !p.eliminado);
 }

@@ -11,7 +11,7 @@
     <script type="module" src="./home.ts" defer></script>
 </head>
 
-<body style="visibility:hidden">
+<body>
     <header>
         <div class="header-left">
             <h1>Food<span>Store</span></h1>
@@ -20,18 +20,16 @@
             logueado como: <span id="userEmail"></span> Rol: <span id="userRole"></span>
         </div>
         <nav>
-            <a href="../../public/home/home.html">Inicio</a>
-            <a href="../../client/home/home.html">Mis Pedidos</a>
-            <a href="../../client/home/home.html" class="active">Carrito</a>
-            <button id="logoutButton" class="btn-logout" >Cerrar Sesión</button>
+            <a href="../../store/home/home.html">Inicio</a>
+            <a href="../../client/home/home.html" class="active">Mis Pedidos</a>
+            <a href="../../store/cart/cart.html">Carrito <span id="cartBadge" class="cart-badge" style="display: none;"></span></a>
+            <button id="logoutButton" class="btn-logout" hidden>Cerrar Sesión</button>
+            <a id="loginLink" href="../../auth/login/login.html" hidden>Iniciar Sesión</a>
         </nav>
     </header>
 
     <main>
 
-        <p class="section-title">Carrito de Compras:</p>
-        <p>Carrito de compras aún no implementado</p>
-        🍕🍔🍟🌭🍿🥗🥟
         <p style="margin-top: 5rem;"></p>
 
         <p class="section-title">Mis pedidos:</p>
