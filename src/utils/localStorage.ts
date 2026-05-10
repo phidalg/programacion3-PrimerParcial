@@ -1,6 +1,6 @@
 import type { IUser } from "../types/IUser";
 import type { ICart } from "../types/ICart";
-import type { Producto } from "../data/data";
+import type { Product } from "../types/product";
 
 export const saveUser = (user: IUser) => {
   const parseUser = JSON.stringify(user);
@@ -13,7 +13,7 @@ export const removeUser = () => {
   localStorage.removeItem("userData");
 };
 
-export const addToCart = (product: Producto) => {
+export const addToCart = (product: Product) => {
   const userData = getUser();
   if (!userData) return; 
 
@@ -30,7 +30,7 @@ export const addToCart = (product: Producto) => {
   persistUserCart();
 };
 
-export const removeFromCart = (product: Producto) => {
+export const removeFromCart = (product: Product) => {
   const userData = getUser();
   if (!userData) return;
 
